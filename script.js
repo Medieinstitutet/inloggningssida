@@ -5,13 +5,23 @@ const loggIn = document.getElementById("btn")
 const username = document.getElementById("username").value
 const password = document.getElementById("password").value
 const wrongUP = document.getElementById("wrongup");
-let loggOut = document.createElement("button");
+const loggOut = document.createElement("button");
 
+
+//localStorage get, ändra, set
 //min array
 let user = [
     {
         username: "janne",
         password: "test"
+    },
+    {
+        username: "anna",
+        password: "panna"
+    },
+    {
+        username: "petter",
+        password: "getter"
     }
 ]
 
@@ -25,9 +35,11 @@ loggIn.addEventListener("click", () => {
         //om användarnman och lösenord stämmer. function change startar
         if (username == user[i].username && password == user[i].password) {
             change()
+        
+            
         }
         //om det inte stämmer med databasen, så skickas man till functionen wrong
-        else if (username !== user[i].username && password !== user[i].password) {
+        else {
             wrong()
         }
     }
@@ -35,16 +47,19 @@ loggIn.addEventListener("click", () => {
 
 //när man är inloggad visas ens användarnamn och en logga ut knapp
 function change() {
-    if (localStorage.getItem("users") === null) {
-        localStorage.setItem("users", JSON.stringify(user));
+    if (localStorage.getItem("user") === null) {
+        localStorage.setItem("user", JSON.stringify(user));
     }
-    welcome.innerHTML = "<h1>välkommen</h1>" + username;
-    header.innerHTML = `Användarnamn: ` + user.username;
+  
+    let users = user.filter((username, i) => { 
+        return welcome.innerHTML = "<h1>välkommen <br/>användare</h1>" + username;
+    })
+    
     loggOut.textContent = "logga ut"
     header.append(loggOut)
-
+    
     loggOut.addEventListener("click", () => {
-
+    localStorage.removeItem("user")
         location.reload()
     })
 
