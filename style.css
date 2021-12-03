@@ -26,14 +26,18 @@ h1{
     font-size: 5rem;;
 
 }
+
 section{
 
     position: relative;
 }
+#welcome{
+    font-size: 3rem;
+}
 footer{
     position:absolute;
     bottom: 0;
-    width: 100vw;
+    width: 100%;
     height: 2rem;
     background-color: rgb(162, 179, 206);
     padding: 1rem;
@@ -45,3 +49,15 @@ font-size: 2.5rem;
     left: 1.3rem;
 
 }
+
+#wrongup{
+    height: 3rem;
+    width: 10rem;
+    text-align: center;
+    position: absolute;
+    top: -3rem;
+    left: 40%;
+    font-size: 1rem;
+}
+
+ 
