@@ -2,8 +2,8 @@
 const header = document.getElementById("header")
 const welcome = document.getElementById("welcome")
 const loggIn = document.getElementById("btn")
-const username = document.getElementById("username").value
-const password = document.getElementById("password").value
+const username = document.getElementById("username")
+const password = document.getElementById("password")
 const wrongUP = document.getElementById("wrongup");
 const loggOut = document.createElement("button");
 
@@ -26,7 +26,7 @@ let user = [
 ]
 
 
-
+// localStorage.setItem("change", change)
 //när man trycker på knappen startar funktionen
 loggIn.addEventListener("click", () => {
     let username = document.getElementById("username").value;
@@ -35,8 +35,8 @@ loggIn.addEventListener("click", () => {
         //om användarnman och lösenord stämmer. function change startar
         if (username == user[i].username && password == user[i].password) {
             change()
-        
             
+
         }
         //om det inte stämmer med databasen, så skickas man till functionen wrong
         else {
@@ -47,19 +47,19 @@ loggIn.addEventListener("click", () => {
 
 //när man är inloggad visas ens användarnamn och en logga ut knapp
 function change() {
+
     if (localStorage.getItem("user") === null) {
         localStorage.setItem("user", JSON.stringify(user));
     }
-  
-    let users = user.filter((username, i) => { 
-        return welcome.innerHTML = "<h1>välkommen <br/>användare</h1>" + username;
-    })
-    
+
+    welcome.innerHTML = `<h1>välkommen </h1><br/> ${username.value}`
+    header.innerHTML = `username: ${username.value}`
     loggOut.textContent = "logga ut"
     header.append(loggOut)
-    
+
     loggOut.addEventListener("click", () => {
-    localStorage.removeItem("user")
+        localStorage.removeItem("user")
+        // localStorage.removeItem("change")
         location.reload()
     })
 
@@ -73,10 +73,9 @@ function wrong() {
     //trycker man på stäng knappen så stängs rutan. innerHTML gör att den töms men försvinner inte ur dom
     closewin.addEventListener("click", () => {
         wrongUP.innerHTML = "";
-
     })
 }
-//när man loggar ut ska man komma tillbaka till start sidan
+
 
 
 
@@ -87,3 +86,4 @@ function wrong() {
 ///en knapp, logga ut, som upphäver functionen när man loggar ut
 
 //Varning när man skriver in fel lösen eller användarnamn
+
