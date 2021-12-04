@@ -7,8 +7,6 @@ const password = document.getElementById("password")
 const wrongUP = document.getElementById("wrongup");
 const loggOut = document.createElement("button");
 
-
-//localStorage get, ändra, set
 //min array
 let user = [
     {
@@ -24,9 +22,6 @@ let user = [
         password: "getter"
     }
 ]
-
-
-// localStorage.setItem("change", change)
 //när man trycker på knappen startar funktionen
 loggIn.addEventListener("click", () => {
     let username = document.getElementById("username").value;
@@ -35,8 +30,7 @@ loggIn.addEventListener("click", () => {
         //om användarnman och lösenord stämmer. function change startar
         if (username == user[i].username && password == user[i].password) {
             change()
-            
-
+            // localStorage.setItem("status","inloggad")
         }
         //om det inte stämmer med databasen, så skickas man till functionen wrong
         else {
@@ -46,25 +40,31 @@ loggIn.addEventListener("click", () => {
 })
 
 //när man är inloggad visas ens användarnamn och en logga ut knapp
-function change() {
-
-    if (localStorage.getItem("user") === null) {
-        localStorage.setItem("user", JSON.stringify(user));
-    }
-
-    welcome.innerHTML = `<h1>välkommen </h1><br/> ${username.value}`
-    header.innerHTML = `username: ${username.value}`
+function change(){
+    
+        localStorage.setItem("user", JSON.stringify(user))
+        main()
+    
+}
+function main(){
+    welcome.innerHTML = `<h1>välkommen </h1>`
+    header.innerHTML = `hejsan`
     loggOut.textContent = "logga ut"
     header.append(loggOut)
+    localStorage.setItem("logg", 1) 
 
     loggOut.addEventListener("click", () => {
         localStorage.removeItem("user")
-        // localStorage.removeItem("change")
+        localStorage.removeItem("logg")
         location.reload()
-    })
-
-};
+    }) 
+}
+function checkLoggIn() {
+    if(localStorage.getItem("logg") == 1){
+        main()
+    }
 //fel user. eller pass. komemr en ruta upp med text och en stäng knapp
+}
 function wrong() {
     wrongUP.innerHTML = "Fel användarnamn eller lösenord, försök igen!";
     let closewin = document.createElement("button");
@@ -76,14 +76,4 @@ function wrong() {
     })
 }
 
-
-
-
-
-
-//en knapp, logga in, som startar functionen när man loggar in
-
-///en knapp, logga ut, som upphäver functionen när man loggar ut
-
-//Varning när man skriver in fel lösen eller användarnamn
-
+window.onload = checkLoggIn();
